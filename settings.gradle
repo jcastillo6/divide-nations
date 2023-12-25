@@ -1,0 +1,4 @@
+rootProject.name = 'DivideNations'
+include 'clients'
+include 'search-engine'
+
