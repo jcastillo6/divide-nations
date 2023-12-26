@@ -11,17 +11,21 @@ import java.util.Set;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jcastillo6.client.restcountries.model.Country;
 
+/**
+ * Default implementation of the CountryInformationProvider
+ * the provider in this case is <a href="https://gitlab.com/restcountries/restcountries">git repo</a>
+ *
+ */
 public class RestCountries implements CountryInformationProvider {
 
     private static final HttpClient httpClient = HttpClient.newHttpClient();
-    private static final String BASE_URL = "https://restcountries.com/v3.1";
-    private static final String ALL_COUNTRIES_PATH = "/all";
+    public static final String DEFAULT_BASE_URL = "https://restcountries.com/v3.1";
+    public static final String DEFAULT_ALL_COUNTRIES_PATH = "/all";
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    @Override
-    public Set<Country> getCountries() {
+    public Set<Country> getCountries(String basePath, String path) {
         var request = HttpRequest.newBuilder()
-            .uri(getURI(BASE_URL + ALL_COUNTRIES_PATH))
+            .uri(getURI(basePath + path))
             .GET()
             .build();
         Country[] countries;
@@ -33,6 +37,11 @@ public class RestCountries implements CountryInformationProvider {
         }
 
         return new HashSet<>(Arrays.asList(countries));
+    }
+
+    @Override
+    public Set<Country> getCountries() {
+        return getCountries(DEFAULT_BASE_URL, DEFAULT_ALL_COUNTRIES_PATH);
     }
 
     private URI getURI(String uriAsString) {

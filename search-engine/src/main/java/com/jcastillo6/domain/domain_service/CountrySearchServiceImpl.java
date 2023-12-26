@@ -45,6 +45,8 @@ public class CountrySearchServiceImpl implements CountrySearchService {
                 Iterable<Country> iterable = country::getNeighboursIterator;
                 return StreamSupport.stream(iterable.spliterator(), false)
                     .filter(neighbour -> !country.getRegion().equalsIgnoreCase(neighbour.getRegion()))
+                    .map(Country::getRegion)
+                    .distinct()
                     .count();
             }));
     }
