@@ -1,6 +1,9 @@
 plugins {
     id 'application'
 }
+application {
+    mainClass = 'com.jcastillo6.Main'
+}
 
 dependencies {
     implementation project(':clients')
