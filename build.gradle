@@ -19,3 +19,17 @@ allprojects {
     }
 }
 
+jacocoTestReport {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
+    reports {
+        xml.required = false
+        csv.required = false
+        html.destination file("${buildDir}/reports/jacoco")
+    }
+}
+
