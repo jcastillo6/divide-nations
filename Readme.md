@@ -5,7 +5,7 @@ This is a sample project create to answer to request:
 - Sorted list of countries by population density in descending order.
 - Country in Asia containing the most bordering countries of a different region.
 
-To execute this project you should run this command:
+To execute this project you should clone this project and run this command:
 
 ./gradlew  :search-engine:run --args="**base_dir**"
 
