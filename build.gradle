@@ -1,3 +1,8 @@
+plugins {
+    id 'base'
+    id 'jacoco-report-aggregation'
+}
+
 allprojects {
     group = 'com.jcastillo6'
     version = '1.0-SNAPSHOT'
@@ -8,10 +13,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-    }
-
-    jacoco {
-        toolVersion = "0.8.9"
     }
 
     dependencies {
@@ -45,21 +46,25 @@ allprojects {
         }
     }
 
+    jacocoTestReport {
+        dependsOn test
+    }
+
     check.dependsOn jacocoTestCoverageVerification
 }
 
-jacocoTestReport {
-    dependsOn test
+dependencies {
+    jacocoAggregation project(':search-engine')
+}
 
-    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-
-    subprojects.each {
-        sourceSets it.sourceSets.main
-    }
-
+reporting {
     reports {
-        xml.required = false
-        csv.required = false
-        html.destination file("${buildDir}/reports/jacoco")
+        testCodeCoverageReport(JacocoCoverageReport) {
+            testType = TestSuiteType.UNIT_TEST
+        }
     }
+}
+
+tasks.named('check') {
+    dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
 }
