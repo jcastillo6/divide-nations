@@ -1,3 +1,8 @@
+plugins {
+    id 'base'
+    id 'jacoco-report-aggregation'
+}
+
 allprojects {
     group = 'com.jcastillo6'
     version = '1.0-SNAPSHOT'
@@ -8,10 +13,6 @@ allprojects {
 
     repositories {
         mavenCentral()
-    }
-
-    jacoco {
-        toolVersion = "0.8.9"
     }
 
     dependencies {

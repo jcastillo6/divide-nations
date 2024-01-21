@@ -46,7 +46,6 @@ public class CountrySearchServiceImpl implements CountrySearchService {
                 return StreamSupport.stream(iterable.spliterator(), false)
                     .filter(neighbour -> !country.getRegion().equalsIgnoreCase(neighbour.getRegion()))
                     .map(Country::getRegion)
-                    .distinct()
                     .count();
             }));
     }
